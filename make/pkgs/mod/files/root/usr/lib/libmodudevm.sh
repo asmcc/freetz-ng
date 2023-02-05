@@ -27,8 +27,10 @@ do_mount_locked() {
 		if [ "$(modconf value MOD_SWAP mod)" == "yes" ]; then
 			local _SWAP_DEV="$(modconf value MOD_SWAP_FILE mod | grep '/dev')"
 			if [ "$_SWAP_DEV" == "$_BD" ]; then
-				[ -e /etc/init.d/rc.swap ] && /etc/init.d/rc.swap autostart "$_BD"
-				_RV=$?
+				if [ -e /etc/init.d/rc.swap ]; then
+					/etc/init.d/rc.swap autostart "$_BD"
+					_RV=$?
+				fi
 			fi
 		fi
 		if $_RV; then
