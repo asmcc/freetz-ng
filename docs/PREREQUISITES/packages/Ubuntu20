@@ -20,7 +20,6 @@ gettext
 git
 graphicsmagick
 imagemagick
-inet-tools
 inkscape
 intltool
 java-wrappers
@@ -46,6 +45,7 @@ libzstd-dev
 make
 ncftp
 netcat
+net-tools
 patch
 patchutils
 perl
@@ -62,4 +62,5 @@ unar
 unzip
 uuid-dev
 wget
+zip
 zlib1g-dev

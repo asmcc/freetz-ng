@@ -18,6 +18,7 @@ Currently supported devices and firmwares
  * [Fritz!Box Fon WLAN (75xx)](#fritzbox-fon-wlan-75xx)
  * [Fritz!Powerline](#fritzpowerline)
  * [Fritz!Repeater](#fritzrepeater)
+ * [Fritz!Smart](#fritzsmart)
  * [T-Com derivatives](#t-com-derivatives)
  * [Alice derivatives](#alice-derivatives)
 
@@ -135,7 +136,7 @@ Currently supported devices and firmwares
 * __Fritz!Box 5530 Fiber (DEVELOPER, No fiber!)__
   - 257.07.21 rev83233 {GER} [AXKFW2]
   - 257.07.30 rev99334 {ALL} [PSQ19P2NL4]
-  - 257.07.39 rev00000 {ALL} [MOVE21] (Inhaus)
+  - 257.07.39 rev102667 {ALL} [MOVE21] (Labor)
 * __Fritz!Box 5590 Fiber__
   - 272.07.30 rev101793 {ALL} [PSQ19P2NL4]
 
@@ -371,7 +372,7 @@ Currently supported devices and firmwares
   - 113.07.12 rev70401 {INT} [MESH18 NL2]
   - 113.07.21 rev81779 {ALL} [PSQ19]
   - 113.07.29 rev92201 {ALL} [PSQ19P2NL4]
-  - 113.07.51 rev102539 {ALL} [MOVE21NL1] (Labor)
+  - 113.07.51 rev102849 {ALL} [MOVE21NL1] (Labor)
 
 ### Fritz!Box Fon WLAN (75xx)
 
@@ -381,16 +382,16 @@ Currently supported devices and firmwares
 
 * __Fritz!Box Fon WLAN 7510__
   - 271.07.30 rev94120 {ALL} [PSQ19P2NL4]
-  - 271.07.39 rev102302 {ALL} [MOVE21] (Labor)
+  - 271.07.39 rev00000 {ALL} [MOVE21] (Labor)
 * __Fritz!Box Fon WLAN 7520__
   - 175.07.14 rev73182 {GER} [MESH18 NL4]
   - 175.07.21 rev82822 {ALL} [PSQ19]
   - 175.07.29 rev92061 {ALL} [PSQ19P2NL4]
-  - 175.07.39 rev102329 {ALL} [MOVE21] (Labor)
+  - 175.07.50 rev102451 {ALL} [MOVE21]
   - Alien 7530 {GER}
 * __Fritz!Box Fon WLAN 7520 B (UNTESTED)__
   - 276.07.31 rev98652 {ALL} [PSQ19P2NL4]
-  - 276.07.39 rev102327 {ALL} [MOVE21] (Labor)
+  - 276.07.50 rev102679 {ALL} [MOVE21]
 * __Fritz!Box Fon WLAN 7530__
   - 164.07.02 rev62311 {GER}
   - 164.07.14 rev73183 {GER} [MESH18 NL4]
@@ -474,7 +475,7 @@ Currently supported devices and firmwares
   - 157.07.29 rev93269 {ALL} [PSQ19P2NL4]
 * __Fritz!Powerline 1260 v2 (UNTESTED)__
   - 249.07.29 rev93271 {ALL} [PSQ19P2NL4]
-  - 249.07.39 rev00000 {ALL} [MOVE21] (Inhaus)
+  - 249.07.39 rev101040 {ALL} [MOVE21] (Inhaus)
 
 ### Fritz!Repeater
 
@@ -519,10 +520,15 @@ Currently supported devices and firmwares
   - 174.07.29 rev93268 {ALL} [PSQ19P2NL4]
   - 174.07.39 rev00000 {ALL} [MOVE21] (Labor)
 * __Fritz!Repeater 3000 AX (UNTESTED)__
-  - 270.07.41 rev00000 {ALL} [MOVE21] (Inhaus)
+  - 270.07.41 rev101080 {ALL} [MOVE21] (Inhaus)
 * __Fritz!Repeater 6000__
   - 253.07.30 rev98407 {ALL} [PSQ19P2NL4]
   - 253.07.39 rev00000 {ALL} [MOVE21] (Labor)
+
+### Fritz!Smart
+
+* __Fritz!Smart Gateway (UNTESTED)__
+  - 265.07.51 rev102777 {ALL} [MOVE21NL1] (Inhaus)
 
 ### T-Com derivatives
 

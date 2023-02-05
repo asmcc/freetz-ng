@@ -22,6 +22,9 @@ check "$RRDSTATS_SAVEBACKUP" yes:savebackup
 check "$RRDSTATS_END_BACKUP" yes:b_stop "*":b_start
 check "$RRDSTATS_START_RESTORE" yes:start_restore
 check "$RRDSTATS_DELBACKUP"  yes:delbackup
+check "$RRDSTATS_TOBITAG" yes:tobitag
+check "$RRDSTATS_SHOWFRAME" yes:showframe
+check "$RRDSTATS_DARKMODE" yes:darkmode
 check "$RRDSTATS_CPU100PERC" yes:cpu100perc
 check "$RRDSTATS_UPTIME_ENB" yes:uptime_enb
 check "$RRDSTATS_POWER_ENB" yes:power_enb
@@ -115,6 +118,7 @@ cat << EOF
 <p>$(lang de:"Tempor&auml;res Verzeichnis" en:"Temporary folder"):&nbsp;<input type="text" name="rrdtemp" size="45" maxlength="255" value="$(html "$RRDSTATS_RRDTEMP")"></p>
 <p>$(lang de:"Persistentes Verzeichnis" en:"Persistent folder"):&nbsp;<input type="text" name="rrddata" size="45" maxlength="255" value="$(html "$RRDSTATS_RRDDATA")"></p>
 <p>$(lang de:"Aufzeichnungsintervall in Sekunden" en:"Log interval in seconds"):&nbsp;<input type="text" name="interval" size="3" maxlength="9" value="$(html "$RRDSTATS_INTERVAL")"></p>
+<p>$(lang de:"Breite der zus&auml;tzlichen Webserver" en:"Width of additional webservers"):&nbsp;<input type="text" name="altwidth" size="4" maxlength="4" value="$(html "$RRDSTATS_ALTWIDTH")"></p>
 <p>
 $(lang de:"Dimensionsverh&auml;ltnis der Graphen" en:"Graph dimensions ratio"):
 <input type="text" name="dimensionx" size="3" maxlength="9" value="$(html "$RRDSTATS_DIMENSIONX")">
@@ -133,6 +137,18 @@ $(lang de:"Graphen immer neu generieren (not lazy)" en:"Always generate new grap
 <input id="l2" type="checkbox" name="notlazys" value="yes"$notlazys_chk><label for="l2">$(lang de:"Unterseiten" en:"Sub-pages")</label>
 </p>
 <p>
+<input type="hidden" name="tobitag" value="no">
+<input id="tt" type="checkbox" name="tobitag" value="yes"$tobitag_chk>
+<label for="tt">$(lang de:"Zeige den Namen des Autors von rrdtool auf allen Graphen" en:"Show the name of the author of rrdtool on all graphs")</label></p>
+<p>
+<input type="hidden" name="showframe" value="no">
+<input id="sf" type="checkbox" name="showframe" value="yes"$showframe_chk>
+<label for="sf">$(lang de:"Zeichne einen Rahmen um die Graphen" en:"Draw a frame around the graphs")</label></p>
+<p>
+<input type="hidden" name="darkmode" value="no">
+<input id="dm" type="checkbox" name="darkmode" value="yes"$darkmode_chk>
+<label for="dm">$(lang de:"Aktiviere Dark-Mode f&uuml;r die Graphen" en:"Enable dark-mode for the graphs")</label></p>
+<p>
 <input type="hidden" name="cpu100perc" value="no">
 <input id="c1" type="checkbox" name="cpu100perc" value="yes"$cpu100perc_chk>
 <label for="c1">$(lang de:"Maximum des Graphen der CPU-Nutzung auf 100 Prozent festlegen" en:"Maximum of the CPU utilization graph always at 100%")</label></p>
@@ -145,12 +161,14 @@ $(lang de:"Graphen immer neu generieren (not lazy)" en:"Always generate new grap
 <input id="u2" type="checkbox" name="power_enb" value="yes"$power_enb_chk>
 <label for="u2">$(lang de:"Energieverbrauch aufzeichnen und anzeigen" en:"Power Consumption logging and graphs")</label></p>
 EOF
-[ "$RRDSTATS_POWER_ENB" == "yes" ] && cat << EOF
+if [ "$RRDSTATS_POWER_ENB" == "yes" ]; then
+cat << EOF
 <p>$(lang de:"Diese Verbraucher &uuml;berwachen" en:"Observe these consumers"):&nbsp;<input type="text" name="power_cfg" size="45" maxlength="255" value="$(html "$RRDSTATS_POWER_CFG")">
 EOF
 for x in $(ctlmgr_ctl -v u power 2>/dev/null | sed -rn 's/.*rate_(.*)act=.*/\1/p'); do PIT="$PIT $x=$(ctlmgr_ctl r power status/rate_${x}act 2>/dev/null)"; done
-[ -n "$PIT" ] && echo "<br /><font size='-2'>$(lang de:"Verf&uuml;gabr" en:"Available"): $PIT</font>"
+[ -n "$PIT" ] && echo "<br /><font size='-2'>$(lang de:"Verf&uuml;gbar" en:"Available"): $PIT</font>"
 echo "</p>"
+fi
 
 
 if [ "$FREETZ_PACKAGE_RRDSTATS_TEMPERATURE_SENSOR" == "y" ]; then

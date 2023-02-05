@@ -12,6 +12,7 @@
 /bunzip2
 /busybox
 /bzimage2eva
+/cmake
 /crc32
 /debugfs
 /e2fsck
@@ -21,16 +22,19 @@
 /fastjar
 /find-squashfs
 /genext2fs
+/gperf
 /gunzip
 /lunzip
 /lzma
 /lzma2eva
 /makedevs
 /md5sum
+/meson
 /mksquashfs2-lzma
 /mksquashfs3-multi
 /mksquashfs4-avm-be
 /mksquashfs4-avm-le
+/ninja
 /patchelf
 /sed
 /sfk

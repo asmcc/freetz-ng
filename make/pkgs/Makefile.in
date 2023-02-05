@@ -7,8 +7,12 @@ endif
 
 SUBMAKE1=cmd() { $(MAKE_ENV) $(MAKE1) $(QUIET) "$$@" $(SILENT) || { $(call ERROR,1,$(BUILD_FAIL_MSG)) } }; $(call _ECHO,building) cmd
 SUBMAKE=cmd() { $(MAKE_ENV) $(MAKE) $(QUIET) "$$@" $(SILENT) || { $(call ERROR,1,$(BUILD_FAIL_MSG)) } }; $(call _ECHO,building) cmd
-CONFIGURE=conf_cmd() { ./configure $(QUIET) "$$$$@" $(SILENT) || { $(call ERROR,1,$(BUILD_FAIL_MSG)) } };
+SUBMESON=cmd() { $(MAKE_ENV) $(MESON) "$$@" $(SILENT) || { $(call ERROR,1,$(BUILD_FAIL_MSG)) } }; $(call _ECHO,building) cmd
+
 AUTORECONF=autoreconf -f -i $(SILENT) || { $(call ERROR,1,autoreconf failed) };
+CONFIGURE=conf_cmd() { ./configure $(QUIET) "$$$$@" $(SILENT) || { $(call ERROR,1,$(BUILD_FAIL_MSG)) } };
+CONFCMAKE=cmake_cmd() { $(MAKE_ENV) $(CMAKE) "$$$$@" $(SILENT) || { $(call ERROR,1,$(BUILD_FAIL_MSG)) } };
+CONFMESON=meson_cmd() { $(MESON) setup "$$$$@" $(SILENT) || { $(call ERROR,1,$(BUILD_FAIL_MSG)) } };
 
 ifeq ($(strip $(FREETZ_TARGET_NLS)),y)
 DISABLE_NLS:=
@@ -141,7 +145,7 @@ endif
 # commands to run before calling configure
 # each command has to be terminated by ';'
 TARGET_CONFIGURE_PRE_CMDS:=
-TARGET_CONFIGURE_PRE_CMDS += $(RM) config.{cache,status};
+TARGET_CONFIGURE_PRE_CMDS += $(RM) -r config.{cache,status} CMakeCache.txt builddir/;
 
 # setup environment for configure
 TARGET_CONFIGURE_ENV:=
@@ -229,7 +233,7 @@ PKG_EDIT_CONFIG = $(SED) -i -r $(foreach asg,$1,$(call PKG_EDIT_CONFIG__INT1,$(a
 
 # PKG_FIX_LIBTOOL_LA
 #   fix directories is libtool .la files and .pc files
-PKG_FIX_LIBTOOL_LA__INT = -e "s,^($1=)(['$(_DQ)]?)([^'$(_DQ)]*)(\2)$$,\1\2$(TARGET_TOOLCHAIN_STAGING_DIR)\3\4,g"
+PKG_FIX_LIBTOOL_LA__INT = -e "s,^($1=)(['$(_DQ)]?)([^'$(_DQ)]*)(\2)$$,\1\2$(TARGET_TOOLCHAIN_STAGING_DIR)\3\4,g;s,^($1=)(.*)\\$$\{prefix\}(.*),\1\2\3,"
 PKG_FIX_LIBTOOL_LA__INT_DEPENDENCY_LIBS = -e "/^dependency_libs/s,[ \t],  ,g;s,([ '])((/usr)?/lib/[^ /]+[.]la)([ ']),\1$(TARGET_TOOLCHAIN_STAGING_DIR)\2\4,g;s, +, ,g"
 PKG_FIX_LIBTOOL_LA = $(SED) -i -r \
 	$(foreach key,$(if $(strip $1),$(strip $1),libdir includedir prefix exec_prefix),$(call PKG_FIX_LIBTOOL_LA__INT,$(key))) \
@@ -315,8 +319,8 @@ endef
 
 define INSTALL_BINARY_STRIP
 $(INSTALL_FILE) \
-[ "$(FREETZ_SEPARATE_AVM_UCLIBC)" == "y" ] && $(TOOLS_DIR)/patchelf --set-interpreter $(FREETZ_LIBRARY_DIR)/ld-uClibc.so.1 $@ || true; \
-$(TARGET_STRIP) $@;
+$(TARGET_STRIP) $@ || exit 1; \
+[ "$(FREETZ_SEPARATE_AVM_UCLIBC)" == "y" ] && $(PATCHELF) --set-interpreter $(FREETZ_LIBRARY_DIR)/ld-uClibc.so.1 $@ || true;
 endef
 define INSTALL_LIBRARY__INT
 chmod 755 $<; \
@@ -639,6 +643,8 @@ PKG_LOCALSOURCE_PACKAGE+=$(if $($(PKG)_REBUILD_SUBOPTS),$(eval $(PKG_UNPACKED_CH
 
 ### PKG_CONFIGURED: Configure package
 PKG_CONFIGURED_CONFIGURE=$(eval $(PKG_CONFIGURED_CONFIGURE__INT))
+PKG_CONFIGURED_CMAKE=$(eval $(PKG_CONFIGURED_CMAKE__INT))
+PKG_CONFIGURED_MESON=$(eval $(PKG_CONFIGURED_MESON__INT))
 
 ## Package needs no configuration
 PKG_CONFIGURED_NOP=$(eval $(PKG_CONFIGURED_NOP__INT))

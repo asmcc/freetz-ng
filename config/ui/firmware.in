@@ -64,6 +64,7 @@ choice
 		select FREETZ_AVM_SOURCE_r7203
 		bool "Speedport W501V"
 
+
 	comment "LAN"
 		depends on FREETZ_SERIES_ALL || FREETZ_SERIES_0N1
 
@@ -71,6 +72,7 @@ choice
 		depends on FREETZ_SERIES_ALL || FREETZ_SERIES_0N1
 		select FREETZ_AVM_SOURCE_04_57
 		bool "2170"
+
 
 	comment "WLAN"
 		depends on FREETZ_SERIES_ALL || FREETZ_SERIES_0N1 || FREETZ_SERIES_2N3 || FREETZ_SERIES_4N5
@@ -130,6 +132,7 @@ choice
 		select FREETZ_AVM_SOURCE_FOR_SYSTEM_TYPE_VR9
 		bool "3490"
 
+
 	comment "WAN"
 		depends on FREETZ_SERIES_ALL || FREETZ_SERIES_4N5
 
@@ -147,6 +150,7 @@ choice
 		depends on FREETZ_SERIES_ALL || FREETZ_SERIES_4N5
 		select FREETZ_AVM_SOURCE_FOR_SYSTEM_TYPE_QCAARMv8
 		bool "4060"
+
 
 	comment "Fon"
 		depends on FREETZ_SERIES_ALL || FREETZ_SERIES_0N1
@@ -177,6 +181,7 @@ choice
 		select FREETZ_AVM_SOURCE_04_67
 		bool "5140"
 
+
 	comment "Fiber"
 		depends on FREETZ_SERIES_ALL || FREETZ_SERIES_4N5
 
@@ -203,6 +208,7 @@ choice
 		depends on FREETZ_SERIES_ALL || FREETZ_SERIES_4N5
 		select FREETZ_AVM_SOURCE_FOR_SYSTEM_TYPE_QCAARMv8
 		bool "5590"
+
 
 	comment "Cable"
 		depends on FREETZ_SERIES_ALL || FREETZ_SERIES_4N5
@@ -236,6 +242,7 @@ choice
 		depends on FREETZ_SERIES_ALL || FREETZ_SERIES_4N5
 		select FREETZ_AVM_SOURCE_FOR_SYSTEM_TYPE_PUMA7
 		bool "6690"
+
 
 	comment "LTE"
 		depends on FREETZ_SERIES_ALL || FREETZ_SERIES_2N3 || FREETZ_SERIES_4N5
@@ -500,6 +507,7 @@ choice
 		select FREETZ_AVM_SOURCE_FOR_SYSTEM_TYPE_GRX5
 		bool "7590 AX"
 
+
 	comment "Powerline"
 		depends on FREETZ_SERIES_ALL || FREETZ_SERIES_EXT
 
@@ -527,6 +535,7 @@ choice
 		depends on FREETZ_SERIES_ALL || FREETZ_SERIES_EXT
 		select FREETZ_AVM_SOURCE_FOR_SYSTEM_TYPE_IPQ40xx
 		bool "1260 v2 - UNTESTED"
+
 
 	comment "Repeater"
 		depends on FREETZ_SERIES_ALL || FREETZ_SERIES_EXT
@@ -580,6 +589,15 @@ choice
 		depends on FREETZ_SERIES_ALL || FREETZ_SERIES_EXT
 		select FREETZ_AVM_SOURCE_FOR_SYSTEM_TYPE_QCAARMv8
 		bool "6000"
+
+
+	comment "Smart"
+		depends on FREETZ_SERIES_ALL || FREETZ_SERIES_EXT
+
+	config FREETZ_TYPE_GATE
+		depends on FREETZ_SERIES_ALL || FREETZ_SERIES_EXT
+		select FREETZ_AVM_SOURCE_FOR_SYSTEM_TYPE_QCAARMv8
+		bool "Gateway - UNTESTED"
 
 endchoice # "Hardware type" #
 
@@ -710,7 +728,7 @@ choice
 	config FREETZ_TYPE_FIRMWARE_07_25_INHAUS
 		bool "FRITZ!OS 07.29 Inhaus - UNTESTED"
 		select FREETZ_AVM_VERSION_07_25
-		select FREETZ_TYPE_FIRMWARE_DETECT_LATEST
+		select FREETZ_TYPE_FIRMWARE_DETECT_LATEST if FREETZ_AVM_HAS_FIRMWARE_LABOR
 		depends on FREETZ_AVM_HAS_FIRMWARE_07_25_INHAUS && FREETZ_SHOW_EXPERT
 		help
 			Enable this to use an AVM Inhaus firmware as base for modding.
@@ -719,7 +737,7 @@ choice
 	config FREETZ_TYPE_FIRMWARE_07_5X_INHAUS
 		bool "FRITZ!OS 07.39/41/51 Inhaus - UNTESTED"
 		select FREETZ_AVM_VERSION_07_5X
-		select FREETZ_TYPE_FIRMWARE_DETECT_LATEST
+		select FREETZ_TYPE_FIRMWARE_DETECT_LATEST if FREETZ_AVM_HAS_FIRMWARE_LABOR
 		depends on FREETZ_AVM_HAS_FIRMWARE_07_5X_INHAUS && FREETZ_SHOW_EXPERT
 		help
 			Enable this to use an AVM Inhaus firmware as base for modding.
@@ -788,6 +806,12 @@ config FREETZ_TYPE_FIRMWARE_FINAL
 		!FREETZ_TYPE_FIRMWARE_LABOR && \
 		!FREETZ_TYPE_FIRMWARE_INHAUS
 
+config FREETZ_AVM_HAS_FIRMWARE_LABOR
+	bool
+	default y
+	depends on \
+		FREETZ_AVM_HAS_FIRMWARE_07_5X_LABOR
+
 config FREETZ_TYPE_FIRMWARE_INHAUS
 	bool
 	default y
@@ -807,7 +831,7 @@ config FREETZ_TYPE_FIRMWARE_LABOR
 ###
 
 if !FREETZ_REAL_DEVELOPER_ONLY__KCONF && \
-	( FREETZ_TYPE_FIRMWARE_UNTESTED || !FREETZ_TYPE_FIRMWARE_FINAL || FREETZ_SYSTEM_TYPE_GRX5||FREETZ_KERNEL_VERSION_4_MIN || FREETZ_REPLACE_KERNEL )
+	( FREETZ_TYPE_FIRMWARE_UNTESTED || !FREETZ_TYPE_FIRMWARE_FINAL || FREETZ_REPLACE_KERNEL )
 
 	comment "WARNINGS -------------------------------------------------"
 if FREETZ_TYPE_FIRMWARE_UNTESTED
@@ -819,10 +843,6 @@ if !FREETZ_TYPE_FIRMWARE_FINAL
 	comment " - there is a higher probability to face stability issues"
 	comment " - some remove/AVM-web-interface patches are not working"
 	comment "   even if selectable in menuconfig"
-endif
-if FREETZ_SYSTEM_TYPE_GRX5||FREETZ_KERNEL_VERSION_4_MIN
-	comment " - replace-kernel is not (yet) available because of changed"
-	comment "   bootloader format. Examine it or ask fritzbox_info@avm.de"
 endif
 if FREETZ_REPLACE_KERNEL
 	comment " - replace-kernel might not work at all"
@@ -850,7 +870,8 @@ config FREETZ_TYPE_FIRMWARE_UNTESTED
 		FREETZ_TYPE_6842 || \
 		FREETZ_TYPE_6850_4G || \
 		FREETZ_TYPE_6850_5G || \
-		FREETZ_TYPE_7582
+		FREETZ_TYPE_7582 || \
+		FREETZ_TYPE_GATE
 
 ###
 ### Alien firmware
