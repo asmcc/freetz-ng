@@ -32,6 +32,7 @@ config FREETZ_LIB_libssl
 
 choice
 	prompt "OpenSSL version"
+	default FREETZ_OPENSSL_VERSION_3
 	default FREETZ_OPENSSL_VERSION_2
 	default FREETZ_OPENSSL_VERSION_1
 	help
@@ -48,7 +49,7 @@ choice
 		 - Supported until 2023-09-11, Long Term Support (LTS) version
 
 		Version 3.0:
-		 - Supported until 2023-09-07
+		 - Supported until 2026-09-07
 
 		See https://www.openssl.org/policies/releasestrat.html
 
@@ -58,13 +59,14 @@ choice
 
 	config FREETZ_OPENSSL_VERSION_1
 		bool "1.0.2 - DEPRECATED"
+		depends on !FREETZ_SEPARATE_AVM_UCLIBC
 
 	config FREETZ_OPENSSL_VERSION_2
 		bool "1.1.1"
 		depends on !FREETZ_TARGET_UCLIBC_0_9_28 && !FREETZ_TARGET_UCLIBC_0_9_29
 
 	config FREETZ_OPENSSL_VERSION_3
-		bool "3.0 - EXPERIMENTAL"
+		bool "3.0"
 		depends on !FREETZ_TARGET_UCLIBC_0_9_28 && !FREETZ_TARGET_UCLIBC_0_9_29 && FREETZ_TARGET_GCC_4_8_MIN
 
 endchoice # "OpenSSL version"
