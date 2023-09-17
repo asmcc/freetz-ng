@@ -3,6 +3,9 @@ if FREETZ_TYPE_1759
 config FREETZ_AVM_HAS_BRANDING_avm
 	def_bool y
 
+config FREETZ_AVM_HAS_CTLMGR_CTL
+	def_bool y
+
 config FREETZ_AVM_HAS_INETD
 	def_bool y
 
@@ -31,6 +34,9 @@ config FREETZ_AVM_HAS_TR069_FWUPDATE
 	def_bool y
 
 config FREETZ_AVM_HAS_UDEV
+	def_bool y
+
+config FREETZ_AVM_HAS_UPSI_2023_TR064CGI
 	def_bool y
 
 config FREETZ_AVM_HAS_WLAN

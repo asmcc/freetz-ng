@@ -6,6 +6,9 @@ config FREETZ_AVM_HAS_BRANDING_avm
 config FREETZ_AVM_HAS_BRANDING_avme
 	def_bool y
 
+config FREETZ_AVM_HAS_CTLMGR_CTL
+	def_bool y
+
 config FREETZ_AVM_HAS_ETCSERVICES
 	def_bool y
 
@@ -67,6 +70,9 @@ config FREETZ_AVM_HAS_SHOWDSLDSTAT
 	def_bool y
 
 config FREETZ_AVM_HAS_SIGNATURE
+	def_bool y
+
+config FREETZ_AVM_HAS_SVCTL
 	def_bool y
 
 config FREETZ_AVM_HAS_TC

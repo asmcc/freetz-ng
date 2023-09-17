@@ -9,7 +9,13 @@ config FREETZ_AVM_HAS_BRANDING_1und1
 config FREETZ_AVM_HAS_BRANDING_avm
 	def_bool y
 
+config FREETZ_AVM_HAS_BRANDING_avme
+	def_bool y
+
 config FREETZ_AVM_HAS_CHRONYD
+	def_bool y
+
+config FREETZ_AVM_HAS_CTLMGR_CTL
 	def_bool y
 
 config FREETZ_AVM_HAS_DDNSD
@@ -108,6 +114,9 @@ config FREETZ_AVM_HAS_SHOWDSLDSTAT
 config FREETZ_AVM_HAS_SIGNATURE
 	def_bool y
 
+config FREETZ_AVM_HAS_SVCTL
+	def_bool y
+
 config FREETZ_AVM_HAS_TAM
 	def_bool y
 
@@ -133,6 +142,9 @@ config FREETZ_AVM_HAS_VPN
 	def_bool y
 
 config FREETZ_AVM_HAS_WLAN
+	def_bool y
+
+config FREETZ_AVM_PROP_ALL_REGIONS
 	def_bool y
 
 config FREETZ_AVM_PROP_ARCH_BE

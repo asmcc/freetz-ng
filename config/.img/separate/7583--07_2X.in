@@ -39,13 +39,25 @@ config FREETZ_AVM_HAS_LANGUAGE_nl
 config FREETZ_AVM_HAS_LANGUAGE_pl
 	def_bool y
 
+config FREETZ_AVM_HAS_UPSI_2023_TR064CGI
+	def_bool y
+
 config FREETZ_AVM_HAS_LEDPAGE
+	def_bool y
+
+config FREETZ_AVM_HAS_KMOD
+	def_bool y
+
+config FREETZ_AVM_HAS_SVCTL
 	def_bool y
 
 config FREETZ_AVM_HAS_SAMBA_NQCS
 	def_bool y
 
 config FREETZ_AVM_HAS_UNTRUSTEDD
+	def_bool y
+
+config FREETZ_AVM_HAS_NSSWITCH
 	def_bool y
 
 config FREETZ_AVM_PROP_KERNEL_4_9_198

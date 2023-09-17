@@ -1,4 +1,4 @@
-# tcpdump 4.1.1/4.99.3 (binary only)
+# tcpdump 4.1.1/4.99.4 (binary only)
  - Homepage: [https://www.tcpdump.org](https://www.tcpdump.org)
  - Manpage: [https://www.tcpdump.org/manpages/tcpdump.1.html](https://www.tcpdump.org/manpages/tcpdump.1.html)
  - Changelog: [https://git.tcpdump.org/tcpdump/blob/HEAD:/CHANGES](https://git.tcpdump.org/tcpdump/blob/HEAD:/CHANGES)
@@ -26,16 +26,7 @@ monitored. However, filtering by network adapter helps.
 
 ### Weiterführende Links
 
--   [tcpdump Homepage](http://www.tcpdump.org/)
--   [tcpdump Man
-    page](http://www.tcpdump.org/tcpdump_man.html)
--   [Wikipedia
-    Artikel](http://de.wikipedia.org/wiki/Tcpdump)
--   [Linux-Wiki
-    Artikel](http://www.linuxwiki.de/TcpDump)
--   [kurzer tcpdump
-    Workshop](http://linuxseiten.kg-it.de/index.php?index=security_tcpdump)
--   [noch ein kleiner
-    Workshop](http://www.tippscout.de/tcpdump-unter-linux-netzwerk-verkehr-aufzeichnen-mit-tcpdump_tipp_2180.html)
+-   [Wikipedia Artikel](http://de.wikipedia.org/wiki/Tcpdump)
+-   [Linux-Wiki Artikel](http://www.linuxwiki.de/TcpDump)
 
 

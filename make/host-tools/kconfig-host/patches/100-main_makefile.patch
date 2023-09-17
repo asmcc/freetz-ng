@@ -9,7 +9,7 @@ it that way for Freetz.
 +++ Makefile
 @@ -0,0 +1,100 @@
 +VERSION = 6
-+PATCHLEVEL = 1
++PATCHLEVEL = 5
 +SUBLEVEL = 0
 +EXTRAVERSION =
 +NAME = "Linux for Workgroups"
@@ -30,7 +30,7 @@ it that way for Freetz.
 +export srctree objtree
 +
 +CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
-+	  else if [ -x /bin/bash ]; then echo /bin/bash; \
++	  else if [ -x "$(command -v bash)" ]; then command -v bash; \
 +	  else echo sh; fi ; fi)
 +
 +HOSTCC       = gcc
