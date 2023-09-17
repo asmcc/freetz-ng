@@ -30,6 +30,12 @@ config FREETZ_AVM_HAS_LANGUAGE_nl
 config FREETZ_AVM_HAS_LANGUAGE_pl
 	def_bool y
 
+config FREETZ_AVM_HAS_UPSI_2023_TR064CGI
+	def_bool y
+
+config FREETZ_AVM_HAS_SVCTL
+	def_bool y
+
 config FREETZ_AVM_HAS_SAMBA_NQCS
 	def_bool y
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /usr/bin/env bash
 
 # Freetz script to modify AVM FRITZ!Box and OEM firmware images
 #
@@ -54,7 +54,7 @@ SELF="$(basename "$0")"
 [ $# -eq 0 ] && usage && exit 0
 
 # Backup command line parameters [$0..$n] to save them from getopts eating them
-# away, because we need them again later for the recursive fakerooted call.
+# away, because we need them again later for the recursive fakeroot/pseudo call.
 for ((i=0; i<=$#; i++)); do
 	CMDLINE_ORIG[i]="${!i}"
 done
@@ -326,9 +326,9 @@ validate_signature() {
 [ $DO_VALIDATE -eq 1 -a $(($DO_UNPACK + $DO_MOD + $DO_PACK + $DO_ZIP)) -eq 0 ] && validate_signature "$DO_VALIDATE" "$FIRMWARE" "$FIRMWARE_PUB" && exit 0
 
 
-#######################################
-## Initialise fakeroot incl. caching ##
-#######################################
+##############################################
+## Initialise fakeroot/pseudo incl. caching ##
+##############################################
 
 # Create id string based on MD5 hashes of firmware images
 FIRMWARE_MD5="$("$MD5SUM" "$FIRMWARE" | cut -d ' ' -f 1)"
@@ -338,12 +338,12 @@ FIRMWARE_MD5="$("$MD5SUM" "$FIRMWARE" | cut -d ' ' -f 1)"
 FAKEROOT_CACHE_DIR="$ABS_BASE_DIR/.fakeroot-cache"
 [ "$FREETZ_ROOTEMU_FAKEROOT" != 'y' ] && FAKEROOT_CACHE_DB="$FAKEROOT_CACHE_DIR/files.db" || FAKEROOT_CACHE_DB="$FAKEROOT_CACHE_DIR/fakeroot.cvs"
 
-# Are we in a fakeroot context?
+# Are we in a fakeroot/pseudo context?
 if [ -n "$FWMOD_RECURSIVE" ] && [ $UID -eq 0 ]; then
-	# Yes -> fakeroot is active
-	# Make sure fakeroot call came from ourselves so we can assume the cache settings to be correct
-	if [ $((FWMOD_RECURSIVE)) -eq 0 ] || [ "$SELF" != "$(sed -nr 's/^Name:[[:blank:]]+(.*)/\1/p' /proc/$FWMOD_RECURSIVE/status)" ]; then
-		error 1 "$SELF must not run in a fakeroot environment"
+	# Yes -> fakeroot/pseudo is active
+	# Make sure fakeroot/pseudo call came from ourselves so we can assume the cache settings to be correct
+	if [ $((FWMOD_RECURSIVE)) -eq 0 ] || [ "./$SELF" != "$(cat /proc/$FWMOD_RECURSIVE/cmdline | tr '\0' '\n' | sed -n 2p)" ]; then
+		error 1 "$SELF must not run in a fakeroot/pseudo environment"
 	fi
 	# Has current combination of firmware already been unpacked?
 	if [ "$(cat "$UNPACKED_FILE" 2>/dev/null)" == "$FIRMWARE_MD5" ]; then
@@ -356,7 +356,7 @@ if [ -n "$FWMOD_RECURSIVE" ] && [ $UID -eq 0 ]; then
 		DO_UNPACK=1
 	fi
 else
-	# No -> fakeroot is inactive
+	# No -> fakeroot/pseudo is inactive
 	if [ "$(cat "$UNPACKED_FILE" 2>/dev/null)" != "$FIRMWARE_MD5" ]; then
 		# Dont keep old databases on a new unpack
 		mkdir -p "$FAKEROOT_CACHE_DIR"
@@ -383,7 +383,7 @@ else
 	# -- Copy file system to target folder (NFS root, maybe USB root) --
 	# ------------------------------------------------------------------
 
-	# This cannot be done in the pack/zip section (needs real sudo, not fakeroot)
+	# This cannot be done in the pack/zip section (needs real sudo, not fakeroot/pseudo)
 	if [ "$COPY_FS_DIR" ]; then
 		echo0 "copying root file system to directory $COPY_FS_DIR"
 		rootfs_archive="$(cat "${DIR}/.rootfs_archive")" ||
@@ -432,53 +432,6 @@ else
 fi
 AVMPLUGINS="${FIRMWARE_DIR}/${AVMPLUGINS_FILE}"
 VARTAR="${FILESYSTEM_DIR}/${VARTAR_FILE}"
-
-# avm image details
-function image_details() {
-	local AVM_FW_PRODUCT
-	local AVM_FW_LANGUAGE
-	#AVM_FW_MAJOR
-	#AVM_FW_VERSION
-	local AVM_FW_LABOR
-	#AVM_FW_REVISION
-	local AVM_FW_DATE
-	local AVM_FW_CYCLE
-	local AVM_FM_REGION
-	#SOURCE_IMAGE_DETAILS
-	#
-	AVM_FW_PRODUCT="$(sed -rn 's/Annex./Annex/;s/export CONFIG_PRODUKT_NAME=".*([0-9]{3}[0-9V].*)"/\1/p' ${FILESYSTEM_DIR}/etc/init.d/rc.conf | head -n1)" # 4-digits in /etc/init.d/rc.conf
-	[ -z "${AVM_FW_PRODUCT}" ] && AVM_FW_PRODUCT="$(sed -rn 's/export CONFIG_PRODUKT_NAME="(FRITZ!Box|Speedport|Sinus|Eumex) ([^"]+)"/\2/p' ${FILESYSTEM_DIR}/etc/init.d/rc.conf | head -n1 | tr ' ' '-')" # symbolic name in /etc/init.d/rc.conf
-	if [ -e "${FILESYSTEM_DIR}/etc/init.d/rc.init" ]; then
-		# /etc/init.d/rc.init is not available in all firmwares
-		[ -z "${AVM_FW_PRODUCT}" ] && AVM_FW_PRODUCT="$(sed -rn 's/^HW=[0-9]* OEM=all _PRODUKT_NAME=(FRITZ!Box|Speedport|Sinus|Eumex)#//p' ${FILESYSTEM_DIR}/etc/init.d/rc.init | head -n1 | sed 's/#//g;s/Annex.//;s/WLAN/-&/g;s/^$/FritzBox/g')" # symbolic name in /etc/init.d/rc.init
-		[ -z "${AVM_FW_PRODUCT}" ] && AVM_FW_PRODUCT="$(sed -rn 's/^HW=[0-9]* OEM=all _PRODUKT_NAME=([0-9A-Z\#]{4,6}).*/\1/p' ${FILESYSTEM_DIR}/etc/init.d/rc.init)" # 4-digits in /etc/init.d/rc.init
-	fi
-	[ -z "${AVM_FW_PRODUCT}" ] && AVM_FW_PRODUCT="$(sed -rn 's/export CONFIG_PRODUKT_NAME=.*(Repeater|Powerline|Smart) (.*)"/\2/p' ${FILESYSTEM_DIR}/etc/init.d/rc.conf)" # Repeater like 'DVB-C'
-	[ -z "${AVM_FW_PRODUCT}" ] && warn "Failed to determine AVM_FW_PRODUCT, even though this is a cosmetic bug only please report it to the Freetz developers and provide your .config"
-	AVM_FW_PRODUCT="${AVM_FW_PRODUCT%% Edition*}"
-	AVM_FW_PRODUCT="${AVM_FW_PRODUCT% }"
-	AVM_FW_LANGUAGE="$(sed -n 's/^language /_/p' ${FILESYSTEM_DIR}/etc/default.language)" #primary language
-	AVM_FW_LANGUAGE="${AVM_FW_LANGUAGE}$(for x in $(ls ${FILESYSTEM_DIR}/etc/htmltext_??.db 2>/dev/null| sed 's/.*_//g;s/\.db//g'); do [ "_$x" != "${AVM_FW_LANGUAGE}" ] && echo -en "-$x"; done; echo)" # other languages
-	AVM_FW_MAJOR="$(sed -rn 's/^export CONFIG_VERSION_MAJOR="(.*)"/\1/p' ${FILESYSTEM_DIR}/etc/init.d/rc.conf | tail -n1)" # newer firmware
-	[ -z "${AVM_FW_MAJOR}" ] && AVM_FW_MAJOR="$(sed -n 's/^HW=[0-9].*VERSION_MAJOR=//p' ${FILESYSTEM_DIR}/etc/init.d/rc.init)" # older firmware
-	AVM_FW_VERSION="$(sed -n 's/^export FIRMWARE_VERSION=.*}[.]//p' ${FILESYSTEM_DIR}/etc/version)" # older firmware
-	[ -z "$AVM_FW_VERSION" ] && AVM_FW_VERSION="$(sed -rn 's/^export CONFIG_VERSION=\"?([^\"]*)\"?/\1/p' ${FILESYSTEM_DIR}/etc/init.d/rc.conf)" # newer firmware
-	AVM_FW_LABOR="$(sed -rn 's/^export CONFIG_LABOR_ID_NAME="(.*)"/-\1/p' ${FILESYSTEM_DIR}/etc/init.d/rc.conf)"
-	AVM_FW_REVISION="$(sed -n '/--project)$/{N;s/.*echo //p}' ${FILESYSTEM_DIR}/etc/version)" # older firmware
-	[ -z "$AVM_FW_REVISION" ] && AVM_FW_REVISION="$(sed -rn 's/^export CONFIG_SUBVERSION=\"?-?([^\"]*)\"?/\1/p' ${FILESYSTEM_DIR}/etc/init.d/rc.conf)" # newer firmware
-	[ -z "$AVM_FW_REVISION" ] && AVM_FW_REVISION="$(sed -rn 's/^export CONFIG_BUILDNUMBER=\"([^\"]*)\"/\1/p' ${FILESYSTEM_DIR}/etc/init.d/rc.conf)" # latest firmware
-	AVM_FW_DATE="$(sed -rn 's/^export FIRMWARE_DATE="(.*)"/\1/p' ${FILESYSTEM_DIR}/etc/version)" # older firmware
-	[ -z "$AVM_FW_DATE" ] && AVM_FW_DATE="$(date -d"$(stat -c '%y' ${FILESYSTEM_DIR}/etc/version)" "+%d.%m.%Y %H:%M:%S")" # newer firmware
-	AVM_FW_CYCLE="$(sed -rn 's/^Releasecycle=//p' "${FIRMWARE_DIR}/var/content" 2>/dev/null)"
-	[ -n "$AVM_FW_CYCLE" ] && AVM_FW_CYCLE=" [$AVM_FW_CYCLE]"
-	[ -d ${FILESYSTEM_DIR}/etc/default.*/avm/ ]                                              && AVM_FM_REGION='GER'
-	[ -d ${FILESYSTEM_DIR}/etc/default.*/avme/ ]                                             && AVM_FM_REGION='INT'
-	[ -d ${FILESYSTEM_DIR}/etc/default.*/avme/ -a -d ${FILESYSTEM_DIR}/etc/default.*/avm/ ]  && AVM_FM_REGION='ALL'
-	[ "$FREETZ_TYPE_LANG_IT" == "y" ]                                                        && AVM_FM_REGION='ITA'
-	[ "$FREETZ_TYPE_LANG_A_CH" == "y" ]                                                      && AVM_FM_REGION='ACH'
-	#
-	SOURCE_IMAGE_DETAILS="${AVM_FW_PRODUCT/ /-}${AVM_FW_LANGUAGE} ${AVM_FW_MAJOR}.${AVM_FW_VERSION}${AVM_FW_LABOR} rev${AVM_FW_REVISION} {${AVM_FM_REGION}}${AVM_FW_CYCLE} (${AVM_FW_DATE})"
-}
 
 echo
 STEP="1"
@@ -1674,6 +1627,24 @@ if [ "$DO_MOD" -gt 0 ]; then
 		[ ! -x "$EXTERNAL" ] && error 1 "cannot find the tool $EXTERNAL_TOOL"
 		source "${EXTERNAL}"
 	fi
+
+	# Vulnarability 2023-09-04 tr064cgi
+	# COMPAT: remove me when juis no longer spreads vulnerable firmware files
+	VUL_tr064cgi='fix'
+	strings "${FILESYSTEM_DIR}/lib/libwebsrv.so.2.0.0" 2>/dev/null | grep -q '^tr064cgi$' || VUL_tr064cgi='bug'
+	if [ -f "${FILESYSTEM_DIR}/lib/libcmapi.so.1.0.0" -a -x "${FILESYSTEM_DIR}/usr/www/cgi-bin/tr064cgi" ]; then
+	strings "${FILESYSTEM_DIR}/lib/libcmapi.so.1.0.0" | grep -q '^/cgi-bin/tr064cgi$' || VUL_tr064cgi='bug'
+	fi
+	[ "$FREETZ_AVM_VERSION_06_2X_MIN" == "y" ] || VUL_tr064cgi='old'
+	case "$VUL_tr064cgi" in
+	#	old)	echo "This firmware is not yet vulnerable for tr064cgi-bug!" ;;
+	#	fix)	echo "This firmware is fixed for tr064cgi-bug vulnerability!" ;;
+		bug)
+			warn "============================================="
+			warn "This firmware is VULNERABLE for tr064cgi-bug!"
+			warn "============================================="
+			;;
+	esac
 
 	touch "${DIR}/.modified"
 	echo0 "done.\n"

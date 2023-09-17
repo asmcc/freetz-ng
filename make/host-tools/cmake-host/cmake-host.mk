@@ -1,38 +1,31 @@
-$(call TOOLS_INIT, 3.25.2)
+$(call TOOLS_INIT, 3.27.5)
 $(PKG)_MAJOR_VERSION:=$(call GET_MAJOR_VERSION,$($(PKG)_VERSION))
-$(PKG)_SOURCE:=cmake-$($(PKG)_VERSION).tar.gz
-$(PKG)_HASH:=c026f22cb931dd532f648f087d587f07a1843c6e66a3dfca4fb0ea21944ed33c
+$(PKG)_SOURCE:=$(pkg_short)-$($(PKG)_VERSION).tar.gz
+$(PKG)_HASH:=5175e8fe1ca9b1dd09090130db7201968bcce1595971ff9e9998c2f0765004c9
 $(PKG)_SITE:=https://github.com/Kitware/CMake/releases/download/v$($(PKG)_VERSION)
 ### WEBSITE:=https://cmake.org/
 ### MANPAGE:=https://cmake.org/cmake/help/latest/
 ### CHANGES:=https://github.com/Kitware/CMake/releases
 ### CVSREPO:=https://gitlab.kitware.com/cmake/cmake
-# needs:  export CMAKE_ROOT=~/freetz-ng/tools/build/usr/share/cmake-3.25
-
-$(PKG)_SHARE_NAME:=cmake-$($(PKG)_MAJOR_VERSION)
-$(PKG)_INSTALL:=$($(PKG)_DIR)/INSTALL
-
-$(PKG)_BINARY:=$($(PKG)_INSTALL)/bin/cmake
-$(PKG)_TARGET_BINARY:=$(TOOLS_DIR)/cmake
-
-$(PKG)_SHARE:=$($(PKG)_INSTALL)/share
-$(PKG)_TARGET_SHARE:=$(TOOLS_DIR)/build/usr/share
-
-$(PKG)_SHARE_INCLUDE:=$($(PKG)_INSTALL)/share/$($(PKG)_SHARE_NAME)/include/cmCPluginAPI.h
-$(PKG)_TARGET_SHARE_INCLUDE:=$($(PKG)_TARGET_SHARE)/$($(PKG)_SHARE_NAME)/include/cmCPluginAPI.h
 
 $(PKG)_DEPENDS_ON+=ninja-host
 
-$(PKG)_CONFIGURE_OPTIONS +=  --generator=Ninja
-$(PKG)_CONFIGURE_OPTIONS +=  --enable-ccache
-$(PKG)_CONFIGURE_OPTIONS +=  --no-qt-gui
-$(PKG)_CONFIGURE_OPTIONS +=  --system-curl
-$(PKG)_CONFIGURE_OPTIONS +=  --system-expat
-$(PKG)_CONFIGURE_OPTIONS +=  --system-zlib
-$(PKG)_CONFIGURE_OPTIONS +=  --system-bzip2
-$(PKG)_CONFIGURE_OPTIONS +=  --system-liblzma
-$(PKG)_CONFIGURE_OPTIONS +=  --system-zstd
-$(PKG)_CONFIGURE_OPTIONS +=  --prefix=$($(PKG)_INSTALL)
+$(PKG)_DESTDIR:=$(FREETZ_BASE_DIR)/$(TOOLS_DIR)/build
+
+$(PKG)_BINARIES            := ccmake cmake cpack ctest
+$(PKG)_BINARIES_TARGET_DIR := $($(PKG)_BINARIES:%=$($(PKG)_DESTDIR)/bin/%)
+$(PKG)_SHARE_TARGET_DIR    := $($(PKG)_DESTDIR)/share/$(pkg_short)-$($(PKG)_MAJOR_VERSION)
+$(PKG)_DOC_TARGET_DIR      := $($(PKG)_DESTDIR)/doc/$(pkg_short)-$($(PKG)_MAJOR_VERSION)
+
+
+$(PKG)_CONFIGURE_OPTIONS += --prefix=$(CMAKE_HOST_DESTDIR)
+$(PKG)_CONFIGURE_OPTIONS += --generator=Ninja
+$(PKG)_CONFIGURE_OPTIONS += --enable-ccache
+$(PKG)_CONFIGURE_OPTIONS += --no-qt-gui
+$(PKG)_CONFIGURE_OPTIONS += --no-system-libs
+$(PKG)_CONFIGURE_OPTIONS += --
+$(PKG)_CONFIGURE_OPTIONS += -DCMAKE_USE_OPENSSL=OFF
+#$(PKG)_CONFIGURE_OPTIONS += -DOPENSSL_USE_STATIC_LIBS=TRUE
 
 
 $(TOOLS_SOURCE_DOWNLOAD)
@@ -40,33 +33,28 @@ $(TOOLS_UNPACKED)
 $(TOOLS_CONFIGURED_CONFIGURE)
 
 $($(PKG)_DIR)/.compiled: $($(PKG)_DIR)/.configured
-	$(TOOLS_SUBNINJA) -C $(CMAKE_HOST_DIR)
+	$(TOOLS_SUBNINJA) -C $(CMAKE_HOST_DIR) all
 	@touch $@
 
 $($(PKG)_DIR)/.installed: $($(PKG)_DIR)/.compiled
 	$(TOOLS_SUBNINJA) -C $(CMAKE_HOST_DIR) install
+	@$(RM) -r "$(CMAKE_HOST_DOC_TARGET_DIR)"
+	@rmdir "$(dir $(CMAKE_HOST_DOC_TARGET_DIR))" || true
 	@touch $@
 
-$($(PKG)_BINARY) $($(PKG)_SHARE_INCLUDE): $($(PKG)_DIR)/.installed
-
-$($(PKG)_TARGET_BINARY): $($(PKG)_BINARY)
-	$(INSTALL_FILE)
-
-$($(PKG)_TARGET_SHARE_INCLUDE): $($(PKG)_SHARE_INCLUDE)
-	mkdir -p $(CMAKE_HOST_TARGET_SHARE)/;
-	cp -r $(CMAKE_HOST_SHARE)/$(CMAKE_HOST_SHARE_NAME) $(CMAKE_HOST_TARGET_SHARE)/;
-
-$(pkg)-precompiled: $($(PKG)_TARGET_BINARY) $($(PKG)_TARGET_SHARE_INCLUDE)
+$(pkg)-precompiled: $($(PKG)_DIR)/.installed
 
 
 $(pkg)-clean:
 	-$(NINJA) -C $(CMAKE_HOST_DIR) uninstall
-	 $(RM) $(NCFTP_DIR)/.{configured,compiled,installed}
+	-$(RM) $(CMAKE_HOST_DIR)/.{configured,compiled,installed}
 
 $(pkg)-dirclean:
 	$(RM) -r $(CMAKE_HOST_DIR)
 
 $(pkg)-distclean: $(pkg)-dirclean
-	$(RM) -r $(CMAKE_HOST_TARGET_BINARY) $(CMAKE_HOST_TARGET_SHARE)/$(CMAKE_HOST_SHARE_NAME)
+	$(RM) -r \
+		$(CMAKE_HOST_BINARIES_TARGET_DIR) \
+		$(CMAKE_HOST_SHARE_TARGET_DIR)
 
 $(TOOLS_FINISH)

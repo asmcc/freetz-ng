@@ -43,8 +43,9 @@ jobs:
           git config --global --add safe.directory $GITHUB_WORKSPACE
           git clone https://github-actions:$GITHUB_TOKEN@${GITHUB_SERVER_URL##*/}/$GITHUB_REPOSITORY.git $GITHUB_WORKSPACE --branch $GITHUB_REF_NAME
 
-      - name: cache
-        uses: actions/cache@v3
+      - name: cache_load
+        uses: actions/cache/restore@v3
+        if: always()
         with:
           path: |
             dl/*
@@ -54,7 +55,7 @@ jobs:
       - name: config
         run: |
           truncate -s0 .config
-          for x in  TYPE_7490 TYPE_FIRMWARE_07_25 TYPE_FIRMWARE_DETECT_LATEST; do echo "FREETZ_$x=y"  >> .config; done
+          for x in  TYPE_7490 TYPE_FIRMWARE_07_2X TYPE_FIRMWARE_DETECT_LATEST; do echo "FREETZ_$x=y"  >> .config; done
           for x in  PACKAGE_LDD PACKAGE_STRACE                               ; do echo "FREETZ_$x=y"  >> .config; done
           for x in  PACKAGE_DROPBEAR                              ; do echo "# FREETZ_$x is not set"  >> .config; done
           echo '# FREETZ_TOOLCHAIN_CCACHE is not set'                                                 >> .config
@@ -127,5 +128,21 @@ jobs:
           replacesArtifacts: false
           artifactErrorsFailBuild: true
           draft: true
+
+      - name: cache_clear
+        env:
+          ACTIONS_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
+        run: |
+          ASSETS="$(curl -s  -H "Accept: application/vnd.github+json"  -H "Authorization: Bearer $ACTIONS_TOKEN"  -H "X-GitHub-Api-Version: 2022-11-28"  "https://api.github.com/repos/${{ github.repository }}/actions/caches")"
+          ASSID="$(echo "$ASSETS" | grep -B7 "\"key\": *\"${{ github.workflow }}\"" | sed -rn 's/ *"id": *([^,]*),*/\1/p')"
+          curl -sL -X DELETE -H "Accept: application/vnd.github+json"  -H "Authorization: Bearer $ACTIONS_TOKEN"  -H "X-GitHub-Api-Version: 2022-11-28"  "https://api.github.com/repos/${{ github.repository }}/actions/caches/$ASSID" && echo "Deleted ASSID=$ASSID ..." || true
+      - name: cache_save
+        uses: actions/cache/save@v3
+        if: always()
+        with:
+          path: |
+            dl/*
+            !dl/fw/*
+          key: ${{ github.workflow }}
 
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /usr/bin/env bash
 #by cuma, 2019
 
 # this generates config/.img/*.in
@@ -112,7 +112,14 @@ unpack_() {
 	line="$1"
 	file="${line%% *}"
 	image="$IMAGES/$file"
-	[ -n "$ACTIONS_FWDLURL" ] && echo "SAVING       $file" && wget -q "${ACTIONS_FWDLURL}$file" -O $image >/dev/null 2>&1 && rmdl='y'
+	if [ ! -s "${image}" ] && [ -n "$ACTIONS_TOKEN" ]; then
+		[ -z "$ASSETS" ] && ASSETS="$(curl -s  -H "Accept: application/vnd.github+json"  -H "Authorization: Bearer $ACTIONS_TOKEN"  -H "X-GitHub-Api-Version: 2022-11-28"  "https://api.github.com/repos/Freetz-NG/images/releases/tags/firmware")"
+		local ASSID="$(echo "$ASSETS" | grep -B7 "\"$file\"" | sed -rn 's/ *"id": *([^,]*),*/\1/p')"
+		echo "ASSETS       $ASSID"
+		[ -n "$ASSID" ] && curl -sLo "$image"  -H "Accept: application/octet-stream"     -H "Authorization: Bearer $ACTIONS_TOKEN"  -H "X-GitHub-Api-Version: 2022-11-28"  "https://api.github.com/repos/Freetz-NG/images/releases/assets/$ASSID"
+		rmdl='y'
+	fi
+	[ ! -s "${image}" ] && [ -n "$ACTIONS_FWDLURL" ] && echo "SAVING       $file" && wget -q "${ACTIONS_FWDLURL}$file" -O $image >/dev/null 2>&1 && rmdl='y'
 	[ ! -s "${image}" ] && image="$HOME/Desktop/$file"
 	[ ! -s "${image}" ] && echo "MISSED       ${image##*/}" && die && return 1
 	dirname="$UNPACK/${line%.image*}"
@@ -435,8 +442,20 @@ determine_() {
 	[ $V -ge 0455 -a $R -lt 27349 ] && in_b "FREETZ_AVM_HAS_${P^^}" && \
 	[ $DOSHOW -ge 2 ] && outp "${P,,}" "YES"
 
+	#UPSI_2023_TR064CGI
+	P='UPSI_2023_TR064CGI'
+	X='fix'
+	strings "$unpacked/lib/libwebsrv.so.2.0.0" 2>/dev/null | grep -q '^tr064cgi$' || X='bug'
+	if [ -f "$unpacked/lib/libcmapi.so.1.0.0" -a -x "$unpacked/usr/www/cgi-bin/tr064cgi" ]; then
+	strings "$unpacked/lib/libcmapi.so.1.0.0" | grep -q '^/cgi-bin/tr064cgi$' || X='bug'
+	fi
+	[ $V -lt 0620 ] && X='old'
+	[ $R -ge 107809 ] && X='new'
+	[ $X == "bug" ] && in_b "FREETZ_AVM_HAS_${P^^}" && \
+	[ $DOSHOW -ge 2 ] && outp "${P,,}" "YES"
 
-	#ANNEX_SELECT (avme is ignored by patch, just for consolodation)
+
+	#ANNEX_SELECT (avme is ignored by patch, just for consolidation)
 	X="$(grep -c "get_annex_checked" "$unpacked/usr/www/avm/internet/dsl_line_settings.lua" 2>/dev/null)"
 	[ -z "$X" ] && X="$(grep -c "get_annex_checked" "$unpacked/usr/www/avme/internet/dsl_line_settings.lua" 2>/dev/null)"
 	[ "$X" -gt 1 ] 2>/dev/null && X="available" || X="%"
@@ -600,6 +619,11 @@ determine_() {
 	[ -e "$unpacked/usr/bin/kmod" ] && X="available" && in_b "FREETZ_AVM_HAS_KMOD"
 	[ $DOSHOW -ge 2 ] && outp "kmod" "$X"
 
+	#SVCTL
+	X="%"
+	[ -e "$unpacked/bin/svctl" ] && X="available" && in_b "FREETZ_AVM_HAS_SVCTL"
+	[ $DOSHOW -ge 2 ] && outp "svctl" "$X"
+
 
 	#MINID
 	X="%"
@@ -664,10 +688,15 @@ determine_() {
 	[ $DOSHOW -ge 2 ] && outp "nqcs" "$X"
 
 
+	#CTLMGR_CTL
+	X="%"
+	[ -e "$unpacked/usr/bin/ctlmgr_ctl" ] && X="available" && in_b "FREETZ_AVM_HAS_CTLMGR_CTL"
+	[ $DOSHOW -ge 2 ] && outp "ctlmgr_ctl" "$X"
+
 	#DSL_CONTROL
 	X="%"
 	[ -e "$unpacked/usr/sbin/dsl_control" -o -e "$unpacked/usr/sbin/vr10/dsl_control" ] && X="available" && in_b "FREETZ_AVM_HAS_DSL_CONTROL"
-	[ $DOSHOW -ge 2 ] && outp "dslctl" "$X"
+	[ $DOSHOW -ge 2 ] && outp "dsl_control" "$X"
 
 	#SHOWDSLDSTAT
 	X="%"

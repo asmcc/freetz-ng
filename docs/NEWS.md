@@ -1,10 +1,107 @@
 # NEWS
 
+ * __[2023-09-10](#2023-09-10)__<a id='2023-09-10'></a><br>
+   Der Aufruf der `fwmod_custom` Scriptes hat sich geändert, es wird jetzt aus dem Basisverzeichnis des Checkouts<br>
+   heraus aufgerufen. Möglicherweise müssen in bestehenden Scripten die Verzeichnisse mit `build/modified/`<br>
+   erweitert werden, falls nicht die Variable `$FILESYSTEM_MOD_DIR` genuztzt wurde.<br>
+   Siehe [18fe85ca](https://github.com/Freetz-NG/freetz-ng/commit/18fe85caa26194899ed1a5c7baaadc95aa83f1df)<br>
+
+ * __[2023-08-20](#2023-08-20)__<a id='2023-08-20'></a><br>
+   Es wurde ein neuer [Tag](https://github.com/Freetz-NG/freetz-ng/tags) `ng23080` erstellt.<br>
+   Die automatisch angebotene und nicht deaktivierbare `.zip`-Datei darf auf keinen Fall verwendet werden, da<br>
+   darin keine Dateiberechtigungen enthalten sind! In der `.tar.gz` fehlt mindestens die Versionsinformation.<br>
+   Stattdessen sollte ein Tag wie in der [README](https://github.com/Freetz-NG/freetz-ng#or-clone-a-single-tag) beschrieben mit git ausgecheckt werden.<br>
+   Siehe [ng23080](https://github.com/Freetz-NG/freetz-ng/releases/tag/ng23080)<br>
+
+ * __[2023-07-04](#2023-07-04)__<a id='2023-07-04'></a><br>
+   Für Kernelmodule gibt es die neue ".ko-on"-Option im menuconfig. Diese sorgt dafür dass im Kernel automatisch<br>
+   Module aus Freetz heraus ausgewählt werden. Da nicht alle möglichen Kombinationen geprüft wurden kann es zu<br>
+   Warnungen wegen unbekannte Symbole oder gar Compilierfehlern kommen. Dann sollte `FREETZ_MODULES_KOON`<br>
+   deaktiviert werden und die Module manuell wie vorher im `kernel-menuconfig` konfiguriert werden.<br>
+   Siehe [0196e188](https://github.com/Freetz-NG/freetz-ng/commit/0196e18884a7c48b8e0c79b60ad0eb6da4985d48)<br>
+
+ * __[2023-06-09](#2023-06-09)__<a id='2023-06-09'></a><br>
+   Diese Woche hat AVM für die ersten Geräte Fritzos 7.56 freigegeben, nachdem aufgefallen ist dass lediglich 1<br>
+   der 2 neuen Features nutzbar war. Die neuen 7.56 Sourcecodekonglomerate gibt es auch schon und für 7590 ac<br>
+   und 7590 ax welche die gloreiche Tradition des 7.55 Konglomerates fortsetzen und wiederum eine falsche<br>
+   Kernelkonfiguration für eine alte Kernelversion enthalten. Die 3 Verzeichnise der Kernelsourcen sind zu 100%<br>
+   identisch und nach wie vor unbrauchbar.<br>
+   Immerhin gibt es bei der 7530 keine unauflösbare Symbole mehr.<br>
+
+ * __[2023-06-04](#2023-06-04)__<a id='2023-06-04'></a><br>
+   Diese Woche hat AVM für die ersten beiden Geräte Fritzos 7.55 freigegeben und nur je 1 Tag später die<br>
+   dazugehörigen Sourcecodekonglomerate veröffentlicht. Die schier unglaubliche Geschwindigkeit die AVM<br>
+   hier erreichte hat natürlich einen hohen Preis, beide Konglomerate gehören qualitativ zu den schlechtesten.<br>
+   "Normalerweise" passt nur die Kernelkonfiguration nicht zum Kernelsourcecode, hier allerdings:<br>
+    - `source-files-FRITZ.Box_7590-grx5-07.55.tar.gz`: Mit Fritzos 7.55 wird eine neuere Kernelversion<br>
+      als in 7.50 verwendet, im Konglomerat ist aber noch die Konfiguration für die alte Version enthalten.<br>
+    - `source-files-FRITZ.Box_7530-cortexa9-07.55.tar.gz`: Immerhin passt die Kernelversion, vermutlich<br>
+      weil sich diese nicht geändert hat. Allerdings gibt es nicht auflösbare Symbole, die Quellen passen also<br>
+      nicht zur Firmware. Die alten 7.50 Quellen passen mutmasslich besser.<br>
+   
+   Oder kurz: Unbrauchbarer Mist.<br>
+   Wenn es genügend Beschwerden an fritzbox_info@avm.de gibt, wird es vielleicht ein Updategeben. Allerdings<br>
+   nur wenn es bis dahin keine "Labor" gibt, bei diesen missachtet AVM bis auf wenige Ausnahmen die GPL.<br>
+
+ * __[2023-06-01](#2023-06-01)__<a id='2023-06-01'></a><br>
+   Für neuere Fritzos Versionen bei denen keine Libraries mehr ersetzt werden, wird nun ausschliesslich gcc 13<br>
+   verwendet. Auf meinem 1 Testgerät mit den Packages und Libraries die ich verwende gab es hierbei keine<br>
+   Probleme. Es ist aber zu erwarten dass das eine oder andere noch angepasst werden muss. Optimalerweise<br>
+   macht dies jeder für die eigenen Software selbst. Ansonste ist der letzte [Tag](https://github.com/Freetz-NG/freetz-ng/tags) anzuraten.<br>
+   Siehe [0973c182](https://github.com/Freetz-NG/freetz-ng/commit/0973c1821106adb3d182513851fdb2b74fb05c7f)<br>
+
+ * __[2023-05-28](#2023-05-28)__<a id='2023-05-28'></a><br>
+   Es wurde ein neuer [Tag](https://github.com/Freetz-NG/freetz-ng/tags) `ng23050` erstellt.<br>
+   Die automatisch angebotene und nicht deaktivierbare `.zip`-Datei darf auf keinen Fall verwendet werden, da<br>
+   darin keine Dateiberechtigungen enthalten sind! In der `.tar.gz` fehlt mindestens die Versionsinformation.<br>
+   Stattdessen sollte ein Tag wie in der [README](https://github.com/Freetz-NG/freetz-ng#or-clone-a-single-tag) beschrieben mit git ausgecheckt werden.<br>
+   Siehe [ng23050](https://github.com/Freetz-NG/freetz-ng/releases/tag/ng23050)<br>
+
+ * __[2023-03-19](#2023-03-19)__<a id='2023-03-19'></a><br>
+   Es gibt ab sofort keine Issues-Sektion mehr, die Diskussionen inklusive beliebter Wishlist bleiben geöffnet.<br>
+   Offenbar besteht der Anspruch dass irgend jemand Probleme für andere behebt sobald ein Issue erstellt wurde.<br>
+   So eine Person existiert bei Freetz-NG nicht! Damit niemand traurig sein muss wurden die Issues deaktiviert<br>
+   bis sich jemand findet der dies übernehmen möchte.<br>
+   Daher ist das neue Vorgehen ab jetzt:<br>
+    - Jemand findet ein schlimmes Problem<br>
+    - Dieser sucht die Ursache dafür<br>
+    - Und behebt das Problem<br>
+    - Ein Pull-Request wird erstellt<br>
+   
+   Wem dies nicht gefällt darf das Problem gern für sich behalten.<br>
+
+ * __[2023-03-18](#2023-03-18)__<a id='2023-03-18'></a><br>
+   Es wurde ein neuer [Tag](https://github.com/Freetz-NG/freetz-ng/tags) `ng23030` erstellt.<br>
+   Die automatisch angebotene und nicht deaktivierbare `.zip`-Datei darf auf keinen Fall verwendet werden, da<br>
+   darin keine Dateiberechtigungen enthalten sind! In der `.tar.gz` fehlt mindestens die Versionsinformation.<br>
+   Stattdessen sollte ein Tag wie in der [README](https://github.com/Freetz-NG/freetz-ng#or-clone-a-single-tag) beschrieben mit git ausgecheckt werden.<br>
+   Siehe [ng23030](https://github.com/Freetz-NG/freetz-ng/releases/tag/ng23030)<br>
+
  * __[2023-01-31](#2023-01-31)__<a id='2023-01-31'></a><br>
    Im `menuconfig` gibt es jetzt die neue Option `FREETZ_ANCIENT_SYSTEM` für die Liebhaber antiker Linuxsystme<br>
    wie Ubuntu 14. Durch diese Option werden Dinge deaktivert die mit Sicherheit nicht funktionieren werden. Es<br>
    gibt dennoch keine Funktionsgarantie füe diese veralteten Systeme.<br>
    Siehe [d5e0121d](https://github.com/Freetz-NG/freetz-ng/commit/d5e0121d94c7835e44fb9c83f8f1dc291f6a6bb7)<br>
+
+ * __[2023-01-26](#2023-01-26)__<a id='2023-01-26'></a><br>
+   Es werden die 3 neue Buildsysteme Meson, Ninja und Cmake unterstützt.<br>
+    - Meson<br>
+      Beispiele:
+      [cairo](../make/libs/cairo/cairo.mk) /
+      [glib2](../make/libs/glib2/glib2.mk) /
+      [pango](../make/libs/pango/pango.mk)<br>
+      Siehe [801e7cf7](https://github.com/Freetz-NG/freetz-ng/commit/801e7cf71c630e8ea06d13cefbb96dc2fcff183c)<br>
+    - Ninja<br>
+      Beispiele:
+      [cmake](../make/host-tools/cmake-host/cmake-host.mk)<br>
+      Siehe [947cfa8c](https://github.com/Freetz-NG/freetz-ng/commit/947cfa8cadb0b5f0794e0e8fe8c48ef450e882b2)<br>
+    - Cmake<br>
+      Beispiele:
+      [getdns](../make/pkgs/getdns/getdns.mk) /
+      [openjp2](../make/libs/openjp2/openjp2.mk) /
+      [libdeflate](../make/libs/libdeflate/libdeflate.mk) /
+      [transmission](../make/pkgs/transmission/transmission.mk)<br>
+      Siehe [d8450e6a](https://github.com/Freetz-NG/freetz-ng/commit/d8450e6a234f666a1b1dbd638b7aefd2c75f6085)<br>
 
  * __[2023-01-14](#2023-01-14)__<a id='2023-01-14'></a><br>
    Mit `tools/prerequisites` können alle nötigen Packages für das laufende Linux angezeigt und installiert werden.<br>

@@ -1,9 +1,10 @@
-$(call TOOLS_INIT, 2023-02-09)
+$(call TOOLS_INIT, 2023-08-18)
 $(PKG)_SOURCE:=tools-$($(PKG)_VERSION).tar.xz
-$(PKG)_HASH:=7f8b87de14c9654326b55edd133d2bb3defb87a503e44a55a6ed1d3844fee044
+$(PKG)_HASH:=70e08bbf10ff74252091f750b41cfb9b3441ca4bca376b26ad14faebc581f998
 $(PKG)_SITE:=@MIRROR/
 
 $(PKG)_DEPENDS_ON:=kconfig-host
+
 $(PKG)_TARBALL_STRIP_COMPONENTS:=0
 
 
@@ -26,7 +27,10 @@ $($(PKG)_DIR)/.installed: $($(PKG)_DIR)/.unpacked
 	cp -fa $(TOOLS_HOST_DIR)/tools $(FREETZ_BASE_DIR)/
 	touch $@
 
-$(pkg)-precompiled: $($(PKG)_DIR)/.installed
+$($(PKG)_DIR)/.fixhardcoded: $($(PKG)_DIR)/.installed | $(patsubst %,%-fixhardcoded,$(TOOLS))
+	touch $@
+
+$(pkg)-precompiled: $($(PKG)_DIR)/.fixhardcoded
 
 
 $(pkg)-clean:

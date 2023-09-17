@@ -82,10 +82,16 @@ config FREETZ_AVM_HAS_LEDPAGE
 config FREETZ_AVM_HAS_KMOD
 	def_bool y
 
+config FREETZ_AVM_HAS_SVCTL
+	def_bool y
+
 config FREETZ_AVM_HAS_UDEV
 	def_bool y
 
 config FREETZ_AVM_HAS_TC
+	def_bool y
+
+config FREETZ_AVM_HAS_CTLMGR_CTL
 	def_bool y
 
 config FREETZ_AVM_HAS_SHOWDSLDSTAT
