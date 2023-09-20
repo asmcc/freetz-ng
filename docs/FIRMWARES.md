@@ -484,7 +484,7 @@ Currently supported devices and firmwares
 * __Fritz!WLAN Repeater DVB-C__
   - 133.06.32 rev31507 {ALL}
   - 133.06.50 rev33858 {ALL}
-  - 133.07.02 rev94126 {ALL}
+  - 133.07.03 rev108008 {ALL}
   - 133.07.08 rev66669 {ALL} [MESH18] (Inhaus)
   - Alien 1750E {GER} (No dvbc!)
 * __Fritz!WLAN Repeater 1750E__
@@ -499,7 +499,7 @@ Currently supported devices and firmwares
   - 172.07.29 rev93267 {ALL} [PSQ19P2NL4]
   - 172.07.57 rev107845 {ALL} [MOVE21NL1]
 * __Fritz!Repeater 1200 AX__
-  - 268.07.30 rev93528 {ALL} [PSQ19P2NL4]
+  - 268.07.31 rev108167 {ALL} [PSQ19P2NL4]
   - 268.07.57 rev107840 {ALL} [MOVE21NL1]
 * __Fritz!Repeater 2400__
   - 169.07.12 rev71975 {ALL} [MESH18 NL2]
@@ -511,9 +511,10 @@ Currently supported devices and firmwares
   - 174.07.29 rev93268 {ALL} [PSQ19P2NL4]
   - 174.07.57 rev107846 {ALL} [MOVE21NL1]
 * __Fritz!Repeater 3000 AX (UNTESTED)__
+  - 270.07.42 rev108161 {ALL} [MOVE21]
   - 270.07.57 rev107839 {ALL} [MOVE21NL1]
 * __Fritz!Repeater 6000__
-  - 253.07.30 rev98407 {ALL} [PSQ19P2NL4]
+  - 253.07.31 rev108162 {ALL} [PSQ19P2NL4]
   - 253.07.57 rev107838 {ALL} [MOVE21NL1]
 
 ### Fritz!Smart
