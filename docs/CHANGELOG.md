@@ -52,11 +52,13 @@ Latest changes
    * cmake 3.27.6
    * dtc 1.7.0
    * kconfig 6.5
+   * meson 1.2.2
    * pkgconf 2.0.3
    * precompiled host-tools 2023-09-17
    * python 3.11.5
 
  - Packages:
+   * ACME.sh 3.0.7 (letsencrypt)
    * Atop 2.9.0
    * BIND 9.11.37/9.16.43
    * CA-bundle 2023-08-22
@@ -68,17 +70,20 @@ Latest changes
    * iPerf3 3.3/3.15
    * mc (Midnight Commander) 4.8.30
    * Nmap 4.76/5.51/7.94
-   * OpenSSH 9.3p2/9.4p1
+   * NZBGet 21.1/21.4-rc2
+   * OpenSSH 9.3p2/9.5p1
    * OpenSSL 0.9.8zh/1.0.2u/1.1.1w/3.0.11
    * PCSC-lite 2.0.0
+   * ProxyChains-NG 4.16
    * Screen 4.9.1
    * SQLite 3.43.1
+   * sslh 2.0.1
    * strace 4.9/5.0/6.5
    * Stunnel 5.71
    * Tor 0.4.8.7
    * Transmission 3.00/4.0.4
    * Unbound 1.18.0
-   * UnRAR 6.1.7/6.2.11
+   * UnRAR 6.1.7/6.2.12
    * Vim 9.0.1872
 
  - Libraries:
@@ -88,6 +93,7 @@ Latest changes
    * libconfuse 3.3
    * fribidi 1.0.13
    * libxml2 2.11.5
+   * mbedTLS 2.7.19/2.28.5
    * neon 0.30.2/0.32.5
    * pango 1.51.0
    * uClibc++ 0.2.6-6687fc92

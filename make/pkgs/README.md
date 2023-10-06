@@ -5,7 +5,7 @@ Index: [A](#a) - [B](#b) - [C](#c) - [D](#d) - [E](#e) - [F](#f) - [G](#g) - [H]
 
 ### A
 
-  * **[ACME.sh 3.0.6 (letsencrypt)](../../docs/make/acme.md)<a id='acme'></a>**<br>
+  * **[ACME.sh 3.0.7 (letsencrypt)](../../docs/make/acme.md)<a id='acme'></a>**<br>
     A pure Unix shell script implementing ACME client protocol.
 
   * **[Apache2 2.4.57 (binary only)](../../docs/make/apache2.md)<a id='apache2'></a>**<br>
@@ -592,7 +592,7 @@ Index: [A](#a) - [B](#b) - [C](#c) - [D](#d) - [E](#e) - [F](#f) - [G](#g) - [H]
   * **[NTFS-3G 2017.3.23 (binary only)](../../docs/make/ntfs.md)<a id='ntfs'></a>**<br>
     The NTFS-3G driver is an open source, freely available read/write NTFS driver for Linux, FreeBSD, OS X, and NetBSD. It provides safe and fast handling of the Windows XP, Windows Server 2003, Windows 2000 and Windows Vista file systems. Most POSIX file system operations are supported, with the exception of full file ownership and access right support. This binary is needed for ntfs automount feature thus there is no webinterface.
 
-  * **[NZBGet 21.1/21.4-rc1](../../docs/make/nzbget.md)<a id='nzbget'></a>**<br>
+  * **[NZBGet 21.1/21.4-rc2](../../docs/make/nzbget.md)<a id='nzbget'></a>**<br>
     NZBGet is a command-line based binary news grabber for nzb files, written in C++. It supports client/server mode, automatic par-check/-repair and web-interface (via additional package). NZBGet requires low system resources and runs great on routers, NAS-devices and media players.
 
 ### O
@@ -621,7 +621,7 @@ Index: [A](#a) - [B](#b) - [C](#c) - [D](#d) - [E](#e) - [F](#f) - [G](#g) - [H]
      - [Fehlerbehebung](../../docs/make/openntpd.md#fehlerbehebung)
      - [Alternative](../../docs/make/openntpd.md#alternative)
 
-  * **[OpenSSH 9.3p2/9.4p1](../../docs/make/openssh.md)<a id='openssh'></a>**<br>
+  * **[OpenSSH 9.3p2/9.5p1](../../docs/make/openssh.md)<a id='openssh'></a>**<br>
     OpenSSH is the premier connectivity tool for remote login with the SSH protocol. It encrypts all traffic to eliminate eavesdropping, connection hijacking, and other attacks. In addition, OpenSSH provides a large suite of secure tunneling capabilities, several authentication methods, and sophisticated configuration options.
 
   * **[OpenSSL 0.9.8zh/1.0.2u/1.1.1w/3.0.11 (binary only)](../../docs/make/openssl.md)<a id='openssl'></a>**<br>
@@ -705,7 +705,7 @@ Index: [A](#a) - [B](#b) - [C](#c) - [D](#d) - [E](#e) - [F](#f) - [G](#g) - [H]
      - [Installation](../../docs/make/privoxy.md#installation)
      - [Diskussion](../../docs/make/privoxy.md#diskussion)
 
-  * **[ProxyChains-NG 4.14](../../docs/make/proxychains-ng.md)<a id='proxychains-ng'></a>**<br>
+  * **[ProxyChains-NG 4.16](../../docs/make/proxychains-ng.md)<a id='proxychains-ng'></a>**<br>
     A preloader which hooks calls to sockets in dynamically linked programs and redirects it through one or more socks/http proxies, tor is also supported. Usage: proxychains4 telnet mail.example.com 25
 
   * **[psl 0.21.2 (binary only)](../../docs/make/psl.md)<a id='psl'></a>**<br>
@@ -869,7 +869,7 @@ Index: [A](#a) - [B](#b) - [C](#c) - [D](#d) - [E](#e) - [F](#f) - [G](#g) - [H]
   * **<u>sshfs-fuse 2.4 (binary only)</u><a id='sshfs-fuse'></a>**<br>
     This is a filesystem client based on the SSH File Transfer Protocol. Since most SSH servers already support this protocol it is very easy to set up: i.e. on the server side there's nothing to do. On the client side mounting the filesystem is as easy as logging into the server with ssh.
 
-  * **[sslh 1.22c](../../docs/make/sslh.md)<a id='sslh'></a>**<br>
+  * **[sslh 2.0.1](../../docs/make/sslh.md)<a id='sslh'></a>**<br>
     sslh accepts HTTPS, SSH and OpenVPN connections on the same port. This makes it possible to connect to an SSH server or an OpenVPN on port 443 (e.g. from inside a corporate firewall, which almost never block port 443) while still serving HTTPS on that port.
 
   * **[Streamripper 1.64.6](../../docs/make/streamripper.md)<a id='streamripper'></a>**<br>
@@ -982,7 +982,7 @@ Index: [A](#a) - [B](#b) - [C](#c) - [D](#d) - [E](#e) - [F](#f) - [G](#g) - [H]
   * **[UNFS3 0.9.23](../../docs/make/unfs3.md)<a id='unfs3'></a>**<br>
     Userspace NFS v3 Server.
 
-  * **[UnRAR 6.1.7/6.2.11 (binary only)](../../docs/make/unrar.md)<a id='unrar'></a>**<br>
+  * **[UnRAR 6.1.7/6.2.12 (binary only)](../../docs/make/unrar.md)<a id='unrar'></a>**<br>
     Unarchiver for .rar files
 
   * **[usbids: usb.ids a5edeafb60](../../docs/make/usbids.md)<a id='usbids'></a>**<br>
