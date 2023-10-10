@@ -49,7 +49,7 @@ Latest changes
    * Ccache 4.8.3
 
  - Host tools:
-   * cmake 3.27.6
+   * cmake 3.27.7
    * dtc 1.7.0
    * kconfig 6.5
    * meson 1.2.2
@@ -68,6 +68,7 @@ Latest changes
    * ftdi1 1.5
    * Git 2.42.0
    * iPerf3 3.3/3.15
+   * Lighttpd 1.4.72
    * mc (Midnight Commander) 4.8.30
    * Nmap 4.76/5.51/7.94
    * NZBGet 21.1/21.4-rc2
