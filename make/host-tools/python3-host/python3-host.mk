@@ -1,10 +1,10 @@
-$(call TOOLS_INIT, 3.11.5)
+$(call TOOLS_INIT, 3.11.6)
 $(PKG)_SOURCE:=Python-$($(PKG)_VERSION).tar.xz
-$(PKG)_HASH:=85cd12e9cf1d6d5a45f17f7afe1cebe7ee628d3282281c492e86adf636defa3f
+$(PKG)_HASH:=0fab78fa7f133f4f38210c6260d90d7c0d5c7198446419ce057ec7ac2e6f5f38
 $(PKG)_SITE:=https://www.python.org/ftp/python/$($(PKG)_VERSION)
 
 $(PKG)_BINARY:=$($(PKG)_DIR)/python
-$(PKG)_TARGET_BINARY:=$(HOST_TOOLS_DIR)/usr/bin/python3.11
+$(PKG)_TARGET_BINARY:=$(HOST_TOOLS_DIR)/usr/bin/python$(call GET_MAJOR_VERSION,$($(PKG)_VERSION))
 
 # python quirk: CFLAGS and OPT flags passed here are then used while cross-compiling -> use some target neutral flags
 $(PKG)_CONFIGURE_ENV += OPT="-fno-inline"
@@ -13,6 +13,7 @@ $(PKG)_CONFIGURE_OPTIONS += --build=$(GNU_HOST_NAME)
 $(PKG)_CONFIGURE_OPTIONS += --host=$(GNU_HOST_NAME)
 $(PKG)_CONFIGURE_OPTIONS += --target=$(GNU_HOST_NAME)
 $(PKG)_CONFIGURE_OPTIONS += --prefix=/usr
+$(PKG)_CONFIGURE_OPTIONS += --enable-optimizations
 
 
 $(TOOLS_SOURCE_DOWNLOAD)
@@ -26,6 +27,7 @@ $($(PKG)_BINARY): $($(PKG)_DIR)/.configured
 	@touch -c $@
 
 $($(PKG)_TARGET_BINARY): $($(PKG)_BINARY) | $(HOST_TOOLS_DIR)
+	\
 	\
 	(PATH=$(TARGET_PATH); \
 		$(TOOLS_SUBMAKE) -C $(PYTHON3_HOST_DIR) \
