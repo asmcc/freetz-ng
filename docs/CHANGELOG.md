@@ -51,7 +51,7 @@ Latest changes
  - Host tools:
    * cmake 3.27.7
    * dtc 1.7.0
-   * kconfig 6.5
+   * kconfig 6.6
    * meson 1.2.2
    * pkgconf 2.0.3
    * precompiled host-tools 2023-10-17
@@ -83,7 +83,7 @@ Latest changes
    * Screen 4.9.1
    * SQLite 3.43.2
    * sslh 2.0.1
-   * strace 4.9/5.0/6.5
+   * strace 4.9/5.0/6.6
    * Stunnel 5.71
    * Tor 0.4.8.7
    * Transmission 3.00/4.0.4
@@ -92,6 +92,8 @@ Latest changes
    * Vim 9.0.1872
 
  - Libraries:
+   * apr 1.7.4
+   * apr-util 1.6.3
    * FreeType 2.13.2
    * glib2 2.32.4/2.76.5
    * harfbuzz 8.2.2
@@ -101,6 +103,7 @@ Latest changes
    * mbedTLS 2.7.19/2.28.5
    * neon 0.30.2/0.32.5
    * pango 1.51.0
+   * serf 1.3.10
    * uClibc++ 0.2.6-6687fc92
 
  - Firmware updates:
