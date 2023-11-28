@@ -46,10 +46,10 @@ aarch64
 sudo dnf -y update && sudo systemctl daemon-reload
 ```
 
- - Fedora 37/38 64-Bit:
+ - Fedora 37/38/39 64-Bit:
 ```
 sudo dnf -y install \
-  bc binutils bison bzip2 ccache cmake cpio curl ecj elfutils-libelf-devel flex gcc gcc-c++ \
+  bc binutils bison bzip2 ccache cmake cpio curl ecj elfutils-libelf-devel flex ftp gcc gcc-c++ \
   gettext git glib2-devel glibc-devel.i686 gnutls-devel ImageMagick inkscape javapackages-tools \
   kmod libacl-devel libattr-devel libcap-devel libgcc.i686 libglade2-devel \
   libstdc++-devel.i686 libstdc++-devel.x86_64 libtool libuuid-devel libxml2-devel libzstd-devel.x86_64 make \
@@ -117,10 +117,23 @@ sudo apt -y update
 sudo apt -y upgrade
 sudo apt -y dist-upgrade
 ```
- - Debian 11 (Bullseye) 64-Bit:
+
+ - Debian 12 64-Bit:
 ```
 sudo apt -y install \
-  autopoint bc binutils bison bsdmainutils bzip2 ccache cmake cpio curl ecj flex g++ gawk gcc \
+  autopoint bc binutils bison bsdmainutils bzip2 ccache cmake cpio curl ecj flex ftp g++ gawk gcc \
+  gcc-multilib gettext git graphicsmagick imagemagick inkscape intltool java-wrappers kmod \
+  lib32ncurses5-dev lib32stdc++6 lib32z1-dev libacl1-dev libc6-dev-i386 libcap-dev libelf-dev \
+  libglib2.0-dev libgnutls28-dev libncurses5-dev libreadline-dev libsqlite3-dev libssl-dev \
+  libstring-crc32-perl libtool-bin libusb-dev libxml2-dev libzstd-dev make netcat-traditional patch perl \
+  pkg-config pv rsync sharutils sqlite3 subversion sudo texinfo tofrodos unar unzip uuid-dev wget \
+  zlib1g-dev
+```
+
+ - Debian 11 64-Bit:
+```
+sudo apt -y install \
+  autopoint bc binutils bison bsdmainutils bzip2 ccache cmake cpio curl ecj flex ftp g++ gawk gcc \
   gcc-multilib gettext git graphicsmagick imagemagick inkscape intltool java-wrappers kmod \
   lib32ncurses5-dev lib32stdc++6 lib32z1-dev libacl1-dev libc6-dev-i386 libcap-dev libelf-dev \
   libglib2.0-dev libgnutls28-dev libncurses5-dev libreadline-dev libsqlite3-dev libssl-dev \
@@ -152,10 +165,22 @@ sudo apt-get -y upgrade
 sudo apt-get -y dist-upgrade
 ```
 
- - Ubuntu 22/23 64-Bit:
+ - Ubuntu 23 64-Bit:
 ```
 sudo apt-get -y install \
-  autopoint bc binutils bison bsdmainutils bzip2 ccache cmake cpio curl ecj flex g++ gawk gcc \
+  autopoint bc binutils bison bsdmainutils bzip2 ccache cmake cpio curl ecj flex ftp g++ gawk gcc \
+  gcc-multilib gettext git graphicsmagick imagemagick inkscape intltool java-wrappers kmod \
+  lib32ncurses-dev lib32stdc++6 lib32z1-dev libacl1-dev libc6-dev-i386 libcap-dev libelf-dev \
+  libglib2.0-dev libgnutls28-dev libncurses-dev libreadline-dev libsqlite3-dev libssl-dev \
+  libstring-crc32-perl libtool-bin libusb-dev libxml2-dev libzstd-dev make ncftp netcat-openbsd net-tools patch \
+  patchutils perl pkg-config pv rsync sharutils sqlite3 subversion sudo texinfo tofrodos unar unzip \
+  uuid-dev wget zip zlib1g-dev
+```
+
+ - Ubuntu 22 64-Bit:
+```
+sudo apt-get -y install \
+  autopoint bc binutils bison bsdmainutils bzip2 ccache cmake cpio curl ecj flex ftp g++ gawk gcc \
   gcc-multilib gettext git graphicsmagick imagemagick inkscape intltool java-wrappers kmod \
   lib32ncurses5-dev lib32stdc++6 lib32z1-dev libacl1-dev libc6-dev-i386 libcap-dev libelf-dev \
   libglib2.0-dev libgnutls28-dev libncurses5-dev libreadline-dev libsqlite3-dev libssl-dev \
@@ -167,7 +192,7 @@ sudo apt-get -y install \
  - Ubuntu 20/21 64-Bit:
 ```
 sudo apt-get -y install \
-  autopoint bc binutils bison bsdmainutils bzip2 ccache cmake cpio curl ecj flex g++ gawk gcc \
+  autopoint bc binutils bison bsdmainutils bzip2 ccache cmake cpio curl ecj flex ftp g++ gawk gcc \
   gcc-multilib gettext git graphicsmagick imagemagick inkscape intltool java-wrappers kmod \
   lib32ncurses5-dev lib32stdc++6 lib32z1-dev libacl1-dev libc6-dev-i386 libcap-dev libelf-dev \
   libglib2.0-dev libgnutls28-dev libncurses5-dev libreadline-dev libsqlite3-dev libssl-dev \
