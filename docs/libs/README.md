@@ -20,7 +20,7 @@ Index: [A](#a) - [B](#b) - [C](#c) - [D](#d) - [E](#e) - [F](#f) - [G](#g) - [H]
 
 ### C
 
-  * **[Cairo (libcairo.so) 1.17.8](cairo.md)<a id='cairo'></a>**<br>
+  * **[Cairo (libcairo.so) 1.18.0](cairo.md)<a id='cairo'></a>**<br>
     Cairo is a 2D graphics library with support for multiple output devices. Cairo is designed to produce consistent output on all output media while taking advantage of display hardware acceleration when available.
 
 ### D
@@ -63,7 +63,7 @@ Index: [A](#a) - [B](#b) - [C](#c) - [D](#d) - [E](#e) - [F](#f) - [G](#g) - [H]
 
 ### H
 
-  * **[HarfBuzz (libharfbuzz.so) 8.2.2](harfbuzz.md)<a id='harfbuzz'></a>**<br>
+  * **[HarfBuzz (libharfbuzz.so) 8.3.0](harfbuzz.md)<a id='harfbuzz'></a>**<br>
     HarfBuzz is a text shaping engine. It primarily supports OpenType, but also Apple Advanced Typography.
 
 ### I
@@ -170,7 +170,7 @@ Index: [A](#a) - [B](#b) - [C](#c) - [D](#d) - [E](#e) - [F](#f) - [G](#g) - [H]
   * **[libmad (libmad.so) 0.15.1b](libmad.md)<a id='libmad'></a>**<br>
     MAD is a high-quality MPEG audio decoder. It currently supports MPEG-1 and the MPEG-2 extension to Lower Sampling Frequencies, as well as the so-called MPEG 2.5 format. All three audio layers (Layer I, Layer II, and Layer III a.k.a. MP3) are fully implemented.
 
-  * **[libmaxminddb (libmaxminddb.so) 1.7.1](libmaxminddb.md)<a id='libmaxminddb'></a>**<br>
+  * **[libmaxminddb (libmaxminddb.so) 1.8.0](libmaxminddb.md)<a id='libmaxminddb'></a>**<br>
     C library for the MaxMind DB file format. You'll need an additional .mmdb file, put it on storage. Get it here: https://github.com/P3TERX/GeoLite.mmdb/
 
   * **[libmnl (libmnl.so) 1.0.4](libmnl.md)<a id='libmnl'></a>**<br>
@@ -227,13 +227,13 @@ Index: [A](#a) - [B](#b) - [C](#c) - [D](#d) - [E](#e) - [F](#f) - [G](#g) - [H]
   * **[libusb1: libusb-1.0 (libusb-1.0.so) 1.0.23/1.0.26](libusb1.md)<a id='libusb1'></a>**<br>
     A library for accessing Linux USB devices (current API).
 
-  * **[libuv (libuv.so) 1.44.2/1.46.0](libuv.md)<a id='libuv'></a>**<br>
+  * **[libuv (libuv.so) 1.44.2/1.47.0](libuv.md)<a id='libuv'></a>**<br>
     libuv is a async IO library for various programs
 
   * **[libvorbis (libvorbis.so) 1.3.5](libvorbis.md)<a id='libvorbis'></a>**<br>
     Vorbis is the name of a specific audio compression scheme that's designed to be contained in Ogg. libvorbis is a BSD-style license software implementation of the Vorbis specification by the Xiph.Org Foundation.
 
-  * **[libxml2 (libxml2.so) 2.11.5](libxml2.md)<a id='libxml2'></a>**<br>
+  * **[libxml2 (libxml2.so) 2.11.6](libxml2.md)<a id='libxml2'></a>**<br>
     XML toolkit from the GNOME project
 
   * **[linux-atm (libatm.so) 2.5.2](linux-atm.md)<a id='linux-atm'></a>**<br>
@@ -249,7 +249,7 @@ Index: [A](#a) - [B](#b) - [C](#c) - [D](#d) - [E](#e) - [F](#f) - [G](#g) - [H]
 
 ### M
 
-  * **[mbedtls: mbedCrypto (libmbedcrypto.so) 2.7.19/2.28.5](mbedtls.md)<a id='mbedtls'></a>**<br>
+  * **[mbedtls: mbedCrypto (libmbedcrypto.so) 2.7.19/2.28.6](mbedtls.md)<a id='mbedtls'></a>**<br>
     Enables support for the Blowfish block cipher.
 
   * **[mpc: GNU MPC Library (libmpc.so) 1.1.0](mpc.md)<a id='mpc'></a>**<br>

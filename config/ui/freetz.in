@@ -230,6 +230,14 @@ menu "Additional informations"
 			help
 				This selects curl and uses it for encrypted https connections.
 
+	config FREETZ_ADD_UIMODS
+		bool "Add FOS UI-Modules"
+		depends on FREETZ_AVM_HAS_CTLMGR_CTL
+		depends on FREETZ_SHOW_EXPERT
+		default y
+		help
+			Adds fos ui-modules management to webif, category 'system'.
+
 	config FREETZ_ADD_INACTIVE_SYSTEM
 		bool "Show inactive firmware"
 		depends on ( FREETZ_AVM_HAS_FWLAYOUT_6 && (FREETZ_AVM_HAS_BLK_DEV_LOOP_BUILTIN || FREETZ_REPLACE_MODULE_AVAILABLE) )
@@ -352,7 +360,7 @@ menu "Additional informations"
 			bool "Buildtype"
 			default n
 			help
-				Adds the  build type.
+				Adds the build type.
 				Values: release/labor/beta/inhaus
 
 		config FREETZ_IMAGE_NAME_BRANDINGS

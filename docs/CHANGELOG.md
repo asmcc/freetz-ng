@@ -4,6 +4,7 @@ Latest changes
 
 - Freetz-NG
   * [devel](#devel)
+  * [ng23110](#ng23110)
   * [ng23080](#ng23080)
   * [ng23050](#ng23050)
   * [ng23030](#ng23030)
@@ -45,6 +46,37 @@ Latest changes
 
 ### devel
 
+ - Host tools:
+   * cmake 3.27.8
+   * fakeroot 1.32.2
+   * meson 1.3.0
+   * precompiled host-tools 2023-11-13
+
+ - Packages:
+   * BIND 9.11.37/9.16.44
+   * CCID 1.5.4
+   * Git 2.43.0
+   * Lua 5.1.5/5.4.6
+   * OpenVPN 2.4.12/2.5.9/2.6.8
+   * PCSC-lite 2.0.1
+   * SQLite 3.44.2
+   * Tor 0.4.8.9
+   * Unbound 1.19.0
+   * xsltproc 1.1.39
+
+ - Libraries:
+   * cairo 1.18.0
+   * harfbuzz 8.3.0
+   * libmaxminddb 1.8.0
+   * libuv 1.44.2/1.47.0
+   * libxml2 2.11.5
+   * mbedTLS 2.7.19/2.28.6
+
+ - Firmware updates:
+   * Please see [FIRMWARES](FIRMWARES.md) for the list of currently supported devices and firmwares.
+
+### ng23110
+
  - Build system:
    * Ccache 4.8.3
 
@@ -53,11 +85,16 @@ Latest changes
    * dtc 1.7.0
    * kconfig 6.6
    * meson 1.2.2
+   * openssl 3.0.12
    * pkgconf 2.0.3
-   * precompiled host-tools 2023-10-17
+   * precompiled host-tools 2023-11-03
    * pseudo 1.9.0 oe-core cc1f616
    * python 3.11.6
    * u-boot 2023.10
+   * xz 5.4.5
+
+ - AVM sources:
+   * 1240 ax 7.57 - 4.4.271
 
  - Packages:
    * ACME.sh 3.0.7 (letsencrypt)
@@ -74,6 +111,7 @@ Latest changes
    * iPerf3 3.3/3.15
    * Lighttpd 1.4.72
    * mc (Midnight Commander) 4.8.30
+   * mysql-connector 8.0.21
    * Nmap 4.76/5.51/7.94
    * NZBGet 21.1/21.4-rc2
    * OpenSSH 9.3p2/9.5p1
@@ -90,6 +128,7 @@ Latest changes
    * Unbound 1.18.0
    * UnRAR 6.1.7/6.2.12
    * Vim 9.0.1872
+   * XZ Utils 5.4.5
 
  - Libraries:
    * apr 1.7.4
@@ -107,7 +146,7 @@ Latest changes
    * uClibc++ 0.2.6-6687fc92
 
  - Firmware updates:
-   * Please see [FIRMWARES](FIRMWARES.md) for the list of currently supported devices and firmwares.
+   * Please see [FIRMWARES](https://github.com/Freetz-NG/freetz-ng/blob/ng23110/docs/FIRMWARES.md) for the list of supported devices and firmwares.
 
 ### ng23080
 

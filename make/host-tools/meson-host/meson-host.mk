@@ -1,6 +1,6 @@
-$(call TOOLS_INIT, 1.2.2)
+$(call TOOLS_INIT, 1.3.0)
 $(PKG)_SOURCE:=meson-$($(PKG)_VERSION).tar.gz
-$(PKG)_HASH:=4a0f04de331fbc7af3b802a844fc8838f4ccd1ded1e792ba4f8f2faf8c5fe4d6
+$(PKG)_HASH:=4ba253ef60e454e23234696119cbafa082a0aead0bd3bbf6991295054795f5dc
 $(PKG)_SITE:=https://github.com/mesonbuild/meson/releases/download/$($(PKG)_VERSION)
 ### WEBSITE:=https://mesonbuild.com/
 ### MANPAGE:=https://mesonbuild.com/
